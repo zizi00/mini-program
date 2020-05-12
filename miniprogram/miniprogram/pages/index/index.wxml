@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+  <swiper class="splash" indicator-dots>
+    <swiper-item wx:for="{{movies}}" wx:for-index="index" wx:key="id">
+      <image src="item.images.large" class="slide-image" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+</view>

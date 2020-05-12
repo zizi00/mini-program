@@ -1,0 +1,11 @@
+<!--miniprogram/pages/board/board.wxml-->
+<!-- <text>miniprogram/pages/board/board.wxml</text> -->
+<view class="container">
+  <view class="slide">
+    <swiper indicator-dots="true">
+      <swiper-item>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
+

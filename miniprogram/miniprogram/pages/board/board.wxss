@@ -1,0 +1,8 @@
+/* miniprogram/pages/board/board.wxss */
+.container {
+  width: 100%;
+}
+.slide swiper {
+  width: 100%;
+  height: 480rpx;
+}
