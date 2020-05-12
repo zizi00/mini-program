@@ -1,20 +1,42 @@
 //app.js
+/**
+ * WeChat API 模块
+ * @type {Object}
+ * 用于将微信官方`API`封装为`Promise`方式
+ * > 小程序支持以`CommonJS`规范组织代码结构
+ */
+const wechat = require('./utils/wechat.js')
+/**
+ * Baidu API 模块
+ * @type {Object}
+ */
+const baidu = require('./utils/baidu.js')
 App({
+  data: {
+    name: 'Douban Movie',
+    version: '0.1.0',
+    currentCity: '北京'
+  },
+  wechat: wechat,
+  baidu: baidu,
+  /**
+   * 生命周期函数--监听小程序初始化
+   * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
+   */
   onLaunch: function () {
-    
-    if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
-    } else {
-      wx.cloud.init({
-        // env 参数说明：
-        //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
-        //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
-        //   如不填则使用默认环境（第一个创建的环境）
-        // env: 'my-env-id',
-        traceUser: true,
+    wechat.getLocation()
+      .then(res => {
+        const {latitude, longitude} = res
+        return baidu.getCityName(latitude, longitude)
       })
-    }
-
-    this.globalData = {}
+      .then(name => {
+        // console.log(name)   // 深圳市
+        this.data.currentCity = name.replace('市', '')
+        console.log('currentCity:' + this.data.currentCity)  // 深圳
+      })
+      .catch(err => {
+        this.data.currentCity = '北京'   // 如果获取不到当前位置，默认为北京
+        console.error(err)
+      })
   }
 })
