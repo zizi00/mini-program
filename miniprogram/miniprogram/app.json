@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/board/board",
     "pages/search/search",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/item/item",
+    "pages/list/list"
   ],
   "permission": {
     "scope.userLocation": {

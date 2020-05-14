@@ -1,4 +1,4 @@
-// miniprogram/pages/board/board.js
+// miniprogram/pages/item/item.js
 const app = getApp()
 Page({
 
@@ -6,39 +6,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    boards: [
-      { key: 'in_theaters' },
-      { key: 'coming_soon' },
-      { key: 'new_movies' },
-      { key: 'top250' },
-      // { key: 'weekly' },
-      // { key: 'us_box' }
-    ]
+    title: '',
+    movie: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    // 现在加载图标
+  onLoad: function (params) {
     wx.showLoading({
       title: '拼命加载中...',
       mask: true
     })
-    const tasks = this.data.boards.map(board =>{
-      return app.douban.find(board.key, 1, 8)
-        .then(res => {
-          board.title = res.title,
-          board.movies = res.subjects
-          return board
-        })
-    })
-    Promise.all(tasks).then(boards => {
-      // console.log(boards)
+    app.douban.findOne(params.id)
+    .then(res=>{
+      console.log(res)
       this.setData({
-        boards: boards,
-        loading: false
+        title: res.title,
+        movie: res
       })
+      wx.setNavigationBarTitle({ title: res.title + ' « 电影 « 豆瓣' })
       wx.hideLoading()
     })
   },

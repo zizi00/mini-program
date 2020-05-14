@@ -1,0 +1,5 @@
+<!--miniprogram/pages/list/list.wxml-->
+<import src="../common/movie-list"/>
+<view class="container">
+  <template is="movie-list" data="{{ movies, loading, hasMore }}"/>
+</view>
